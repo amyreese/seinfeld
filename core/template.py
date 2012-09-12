@@ -9,7 +9,7 @@ from core.routing import _fullpath, _titles
 
 whitespace_regex = re.compile(r'\s*(</?[^>]+>)\s*')
 
-def template(template, status=200, minify=True):
+def template(template, status=200, minify=False):
     """Use the given template for the page, using the returned dictionary for template values."""
     def decorator(f):
         template_name = _fullpath(template)

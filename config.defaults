@@ -10,4 +10,4 @@ LOG_CONSOLE = True
 LOG_FILE = "error.log"
 
 # Database options
-DB_URI = "sqlite:///app.db"  # http://docs.sqlalchemy.org/en/rel_0_7/core/engines.html#database-urls
+DB_PATH = ""  # path to seinfeld quote database

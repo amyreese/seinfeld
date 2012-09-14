@@ -1,4 +1,5 @@
 from flask import abort
+from jinja2.filters import do_capitalize
 
 from core import app, context, get, template
 from core.routing import api_help
@@ -35,17 +36,21 @@ def quote(uid):
     except (KeyError, ValueError) as e:
         abort(404)
 
-@get('/random', 'Random')
-@get('/random/<subject>', 'Random')
+@get('/random')
+@get('/random/<subject>')
+@get('/random/subject/<subject>')
+@get('/random/speaker/<speaker>')
+@get('/random/speaker/<speaker>/<subject>')
 @template('quote.html')
-def random(subject=None):
+def random(subject=None, speaker=None):
     try:
-        passage = Passage.random(subject)
+        passage = Passage.random(subject=subject, speaker=speaker)
         if passage is None:
             abort(404)
 
         return {
-            'passage': Passage.random(subject),
+            'title': speaker or subject or 'Random',
+            'passage': passage,
         }
     except (KeyError, ValueError) as e:
         abort(404)

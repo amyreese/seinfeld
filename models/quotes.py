@@ -95,7 +95,7 @@ class Passage(object):
         self.quotes = [Quote(uid, speaker) for uid, speaker in rows]
 
     @classmethod
-    def random(cls, subject=None):
+    def random(cls, subject=None, speaker=None):
         c = db.cursor()
 
         if subject is None:
@@ -107,20 +107,34 @@ class Passage(object):
                          ''')
 
         else:
-            app.logger.debug('searching for random passage matching {}'.format(subject))
+            conditions = []
+            params = []
+
+            if subject is not None:
+                conditions.append('text LIKE ?')
+                params.append('%{}%'.format(subject))
+
+            if speaker is not None:
+                conditions.append('''utterance_id IN (
+                                        SELECT id
+                                        FROM utterance
+                                        WHERE speaker LIKE ?
+                                     )''')
+                params.append(speaker)
+
+            where = ' AND '.join(conditions)
+
             c.execute('''SELECT utterance_id
                          FROM sentence
-                         WHERE text LIKE ?
+                         WHERE {}
                          ORDER BY RANDOM()
                          LIMIT 1
-                         ''', ('%{}%'.format(subject),))
+                         '''.format(where), params)
 
         result = c.fetchone()
-        app.logger.debug('search result: {}'.format(result))
 
         if result is None:
             return None
 
         uid, = result
         return Passage(uid=uid)
-

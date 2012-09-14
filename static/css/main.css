@@ -2,3 +2,9 @@ body {
 	padding-top: 60px;
 	padding-bottom: 40px;
 }
+
+div.fb-like {
+	margin-left: 12px;
+	position: relative;
+	top: 2px;
+}

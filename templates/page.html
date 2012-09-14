@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>{{ title }}</title>
+		<title>{{ title | capitalize }}</title>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -21,10 +21,10 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</a>
-					<a class="brand" href="/">Seinfeld Quote</a>
+					<a class="brand" href="/"><i class="icon-comments-alt"></i> Seinfeld Quote</a>
 
 					<form class="navbar-search pull-right" method="get" action="/random">
-						<input type="text" class="search-query" name="subject" placeholder="Search for quotes"/>
+						<input type="text" class="span2 search-query" name="subject" placeholder="Search for quotes"/>
 					</form>
 					<div class="nav-collapse collapse">
 						<ul class="nav">

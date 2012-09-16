@@ -9,6 +9,7 @@ libpath = path.join(cwd, "lib")
 libs = ["flask",
         "jinja2",
         "werkzeug",
+        "python-memcached-1.48",
         ]
 
 for lib in libs:

@@ -11,3 +11,6 @@ LOG_FILE = "error.log"
 
 # Database options
 DB_PATH = ""  # path to seinfeld quote database
+
+# Memcached options
+MC_URI = "127.0.0.1:11211" # host:port

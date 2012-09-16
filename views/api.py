@@ -12,7 +12,7 @@ def api_index():
 
     return {'content': output}
 
-@api('/speakers', methods=['GET'])
+@api('/speakers', methods=['GET'], cache=True, cache_time=86400)
 def speakers(method):
     """Return a list of all speakers, ordered by number of quotes."""
     c = db.cursor()

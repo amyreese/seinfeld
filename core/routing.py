@@ -69,7 +69,7 @@ def post(url):
 
 api_help = {}
 
-def api(api_url, methods=['GET', 'POST', 'PUT'], format='application/json', split_payload=False):
+def api(api_url, methods=['GET', 'POST', 'PUT'], format='application/json', split_payload=False, cache=False, cache_time=300):
     """Route the given API url over multiple HTTP methods, automatically converting between JSON and objects."""
     full_url = app.config['API_ROOT'] + _fullpath(api_url)
     def decorator(f):
@@ -133,6 +133,13 @@ def api(api_url, methods=['GET', 'POST', 'PUT'], format='application/json', spli
 
             response = make_response(output)
             response.mimetype = format
+
+            if cache:
+                response.headers.add('Cache-Control',
+                               'public, max-age={}'.format(cache_time))
+            else:
+                response.headers.add('Cache-Control', 'no-store')
+
             return response
 
         return decorated_function

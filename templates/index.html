@@ -1,10 +1,23 @@
 {% extends "page.html" %}
+{% from "macros.html" import passage_block, search_block %}
 {% block content %}
 <div class="row">
-	<div class="span12">
-		<div class="well">
-		<h1>Hi</h1>
-	</div>
+	<div class="span8 offset2">
+		<h1>Welcome to Seinfeld Quote</h1>
+		<p class="lead">
+			This site is dedicated to making it easy to find and access your
+			favorite quotes from that legendary TV sitcom.  You can search for
+			quotes by topic or speaker, get a random quote, or you can browse
+			the list of episodes.
+		</p>
 	</div>
 </div>
+
+<div class="row">
+	<div class="span8 offset2">
+		<h1>Featured Quote</h1>
+	</div>
+</div>
+
+{{ passage_block(passage) }}
 {% endblock %}

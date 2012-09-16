@@ -110,11 +110,11 @@ class Passage(object):
             conditions = []
             params = []
 
-            if subject is not None:
+            if subject:
                 conditions.append('text LIKE ?')
                 params.append('%{}%'.format(subject))
 
-            if speaker is not None:
+            if speaker:
                 conditions.append('''utterance_id IN (
                                         SELECT id
                                         FROM utterance

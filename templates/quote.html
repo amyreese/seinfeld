@@ -1,37 +1,5 @@
 {% extends "page.html" %}
+{% from "macros.html" import passage_block %}
 {% block content %}
-<div class="row">
-	<div class="well span8 offset2">
-
-		<div class="row">
-			<div class="span7 offset1">
-				<h1>
-					{{ passage.episode.title }}
-					<small>Season {{ passage.episode.season }}, Episode {{ passage.episode.number }}</small>
-				</h1>
-			</div>
-		</div>
-
-		{% for quote in passage.quotes %}
-		<div class="row">
-			<div class="span1">
-				<p class="muted pull-right">
-					<b><small>{{ quote.speaker | capitalize }}</small></b>
-				</p>
-			</div>
-			<div class="span7">
-					<p>{{ quote.text }}</p>
-			</div>
-		</div>
-		{% endfor %}
-
-		<div class="row">
-			<div class="span7 offset1">
-				<small><a class="" href="/quote/{{ passage.uid }}"><i class="icon-link"></i> Permalink</a></small>
-				<div class="fb-like" data-href="http://seinfeldquote.com/quote/{{ passage.uid }}" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false" data-font="arial"></div>
-			</div>
-		</div>
-	</div>
-</div>
-
+{{ passage_block(passage) }}
 {% endblock %}

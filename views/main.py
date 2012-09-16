@@ -2,29 +2,26 @@ from flask import abort
 from jinja2.filters import do_capitalize
 
 from core import app, context, get, template
-from core.routing import api_help
 
 from models import Quote, Passage
 
 @get('/', 'Seinfeld Quote')
 @template('index.html')
 def index():
-    return {}
+    passage = Passage(uid=37592)
+    return {
+        'passage': passage,
+    }
 
 @get('/about', 'About')
 @template('about.html')
 def about():
     return {}
 
-@get(app.config['API_ROOT'], 'API Listing')
-@template('api.html')
-def api_index():
-    """Returns a plain text listing of API methods, parameters, and descriptions."""
-    output = ''
-    for url in sorted(api_help.iterkeys()):
-        output += api_help[url]
-
-    return {'content': output}
+@get('/search', 'Search Quotes')
+@template('search.html')
+def search():
+    return {}
 
 @get('/quote/<int:uid>', 'Passage')
 @template('quote.html')

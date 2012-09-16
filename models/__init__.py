@@ -1,1 +1,1 @@
-from quotes import Episode, Quote, Passage
+from quotes import db, Episode, Quote, Passage

@@ -1,11 +1,45 @@
 {% extends "page.html" %}
 {% block content %}
+<div class="row">
+	<div class="span8 offset2">
+		<h1>About Seinfeld Quote</h1>
+		<p class="lead">
+			This site is dedicated to making it easy to find and access your
+			favorite quotes from that legendary TV sitcom about nothing. You can
+			search for random quotes by topic or speaker, or just get a totally
+			random quote altogether.
+		</p>
 
-<div class="row-fluid">
-	<div class="span10 offset1">
-		<div class="well">
-			Foo!
-		</div>
+		<p>
+			The site began its life as an
+			<a href="https://github.com/jreese/supybot-plugins/tree/master/Seinfeld">IRC bot plugin</a>
+			that would fetch random quotes from Seinfeld episodes based on a
+			search term or phrase.  The bot would query its database for any
+			spoken sentence that matched the given subject, and pick a random
+			quote to return to the user, with context.  Its quote database is
+			generated using
+			<a href="https://github.com/colinpollock/seinfeld-scripts">scripts by Collin Pollock</a>.
+		</p>
+		<p>
+			With the <a href="http://flask.pocoo.org">Flask web framework</a>,
+			<a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>,
+			<a href="http://fortawesome.github.com/Font-Awesome/">Font Awesome</a>,
+			and a bit of polish, the IRC plugin was reborn as SeinfeldQuote.com,
+			and a new era of quotes from a show about nothing was born.
+		</p>
+		<p>
+			There are many planned features to expand the functionality of the
+			site, including more options for exploring episodes and speakers,
+			getting more context when viewing quotes, and sharing your favorite
+			quotes with your friends who also like shows about nothing.
+		</p>
+		<p>
+			The <a href="https://github.com/jreese/seinfeld">source code</a>
+			is open source, and welcomes bug reports, contributers and feature
+			requests.  Documentation is extremely sparse at the moment, but
+			should be relatively straightforward for those familiar with Flask
+			and WSGI applications.
+		</p>
 	</div>
 </div>
 

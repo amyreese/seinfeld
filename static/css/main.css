@@ -3,6 +3,10 @@ body {
 	padding-bottom: 40px;
 }
 
+div.footer {
+	margin-top: 20px;
+}
+
 div.fb-like {
 	margin-left: 12px;
 	position: relative;

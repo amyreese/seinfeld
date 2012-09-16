@@ -1,3 +1,8 @@
+{% macro navbar_link(url, title, icon=None) -%}
+<li{% if request.path.startswith(url) %} class="active"{% endif %}>
+<a href="{{ url }}">{% if icon %}<i class="icon-{{ icon }}"></i> {% endif %}{{ title }}</a></li>
+{%- endmacro %}
+
 {% macro passage_block(passage) -%}
 <div class="row">
 	<div class="well span8 offset2">
@@ -40,15 +45,15 @@
 		<h1>Search Quotes</h1>
 		<form class="form-horizontal" action="/random" method="get">
 			<div class="control-group">
-				<label class="control-label" for="subject">Subject</label>
+				<label class="control-label" for="speaker">Speaker</label>
 				<div class="controls">
-					<input type="text" id="subject" name="subject" placeholder="Subject"/>
+					<input class="input" type="text" id="speaker" name="speaker" placeholder="Anyone" data-provide="typeahead"/>
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="speaker">Speaker</label>
+				<label class="control-label" for="subject">Subject</label>
 				<div class="controls">
-					<input class="input" type="text" id="speaker" name="speaker" placeholder="speaker" data-provide="typeahead"/>
+					<input type="text" id="subject" name="subject" placeholder="Anything"/>
 				</div>
 			</div>
 			<div class="control-group">
@@ -67,6 +72,7 @@ $(document).ready(function() {
 			source: data,
 			items: 6,
 		});
+		$('input#speaker').focus();
 	});
 });
 </script>

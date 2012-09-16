@@ -1,3 +1,4 @@
+{% from "macros.html" import navbar_link with context %}
 <!DOCTYPE html>
 <html>
 	<head>
@@ -23,13 +24,11 @@
 					</a>
 					<a class="brand" href="/"><i class="icon-comments-alt"></i> Seinfeld Quote</a>
 
-					<form class="navbar-search pull-right" method="get" action="/random">
-						<input type="text" class="span2 search-query" name="subject" placeholder="Search for quotes"/>
-					</form>
 					<div class="nav-collapse collapse">
 						<ul class="nav">
-							<li><a href="/random">Random Quote</a></li>
-							<li><a href="/search">Search Quotes</a></li>
+							{{ navbar_link('/random', 'Random Quote', 'random') }}
+							{{ navbar_link('/search', 'Search Quotes', 'search') }}
+							{{ navbar_link('/about', 'About', 'book') }}
 						</ul>
 					</div>
 				</div>
@@ -44,6 +43,15 @@
 		{% endblock %}
 		</div>
 
+		<div class="container footer">
+			<div class="span10 offset1">
+				<center><small class="muted">
+					<a href="http://noswap.com" class="muted"><i class="icon-flag"></i> Created by John Reese</a>
+					&nbsp;&nbsp;
+					<a href="https://github.com/jreese/seinfeld" class="muted"><i class="icon-github"></i> Open sourced on Github</a>
+				</small></center>
+			</div>
+		</div>
 
 		<div id="fb-root"></div>
 		<script>(function(d, s, id) {

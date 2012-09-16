@@ -98,7 +98,7 @@ class Passage(object):
     def random(cls, subject=None, speaker=None):
         c = db.cursor()
 
-        if subject is None:
+        if not subject and not speaker:
             app.logger.debug('searching for random passage')
             c.execute('''SELECT id
                          FROM utterance

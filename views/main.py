@@ -8,7 +8,8 @@ from models import Quote, Passage
 @get('/', 'Seinfeld Quote')
 @template('index.html')
 def index():
-    passage = Passage(uid=37592)
+    #passage = Passage(uid=37592)
+    passage = Passage(uid=34663)
     return {
         'passage': passage,
     }

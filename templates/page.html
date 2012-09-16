@@ -24,10 +24,12 @@
 					</a>
 					<a class="brand" href="/"><i class="icon-comments-alt"></i> Seinfeld Quote</a>
 
+					<ul class="nav">
+						{{ navbar_link('/search', 'Search', 'search') }}
+					</ul>
 					<div class="nav-collapse collapse">
 						<ul class="nav">
 							{{ navbar_link('/random', 'Random Quote', 'random') }}
-							{{ navbar_link('/search', 'Search Quotes', 'search') }}
 							{{ navbar_link('/about', 'About', 'book') }}
 						</ul>
 					</div>

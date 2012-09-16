@@ -1,5 +1,27 @@
 {% extends "page.html" %}
-{% from "macros.html" import search_block %}
 {% block content %}
-{{ search_block() }}
+<form action="/random" method="get">
+<div class="row">
+	<div class="well span4 offset4">
+		<h2>Search Quotes</h2>
+		<label class="muted" for="speaker">Speaker</label>
+		<input class="span4 input" type="text" id="speaker" name="speaker" placeholder="Anyone" data-provide="typeahead"/>
+		<label class="muted" for="subject">Subject</label>
+		<input class="span4 input" type="text" id="subject" name="subject" placeholder="Anything"/>
+		<button class="btn" type="submit">Search</button>
+	</div>
+</div>
+</form>
+<script>
+$(document).ready(function() {
+	$.getJSON('/api/speakers', function(data, status) {
+		$('input#speaker').typeahead({
+			minLength: 0,
+			source: data,
+			items: 6,
+		});
+		$('input#speaker').focus();
+	});
+});
+</script>
 {% endblock %}

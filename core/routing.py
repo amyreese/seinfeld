@@ -34,7 +34,7 @@ class context(object):
     def __exit__(self, exc_type, exc_value, traceback):
         _context.pop(0)
 
-def get(url, title=None):
+def get(url, title=None, cache=True, cache_time=300):
     """Route the given URL for GET methods."""
     def decorator(f):
         full_url = _fullpath(url)
@@ -47,7 +47,16 @@ def get(url, title=None):
             for key in request.args:
                 if key not in kwargs:
                     kwargs[key] = request.args[key]
-            return f(*args, **kwargs)
+            rv = f(*args, **kwargs)
+
+            if isinstance(rv, app.response_class):
+                if cache:
+                    rv.headers.add('Cache-Control',
+                                   'public, max-age={}'.format(cache_time))
+                else:
+                    rv.headers.add('Cache-Control', 'no-store')
+
+            return rv
 
         return decorated_function
 

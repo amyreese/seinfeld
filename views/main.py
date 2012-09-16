@@ -34,11 +34,11 @@ def quote(uid):
     except (KeyError, ValueError) as e:
         abort(404)
 
-@get('/random')
-@get('/random/<subject>')
-@get('/random/subject/<subject>')
-@get('/random/speaker/<speaker>')
-@get('/random/speaker/<speaker>/<subject>')
+@get('/random', cache=False)
+@get('/random/<subject>', cache=False)
+@get('/random/subject/<subject>', cache=False)
+@get('/random/speaker/<speaker>', cache=False)
+@get('/random/speaker/<speaker>/<subject>', cache=False)
 @template('quote.html')
 def random(subject=None, speaker=None):
     try:

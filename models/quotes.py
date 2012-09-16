@@ -1,3 +1,4 @@
+import random
 import sqlite3
 
 from core import app, Cacheable
@@ -54,6 +55,8 @@ class Quote(object):
 class Passage(object):
     __metaclass__ = Cacheable
 
+    highest_uid = 52206 # SELECT id FROM utterance ORDER BY id DESC LIMIT 1
+
     def __init__(self, uid):
         self.uid = uid
 
@@ -95,12 +98,7 @@ class Passage(object):
         c = db.cursor()
 
         if not subject and not speaker:
-            app.logger.debug('searching for random passage')
-            c.execute('''SELECT id
-                         FROM utterance
-                         ORDER BY RANDOM()
-                         LIMIT 1
-                         ''')
+            uid = random.randint(1, cls.highest_uid)
 
         else:
             conditions = []
@@ -126,13 +124,13 @@ class Passage(object):
                          ORDER BY RANDOM()
                          LIMIT 1
                          '''.format(where), params)
+            result = c.fetchone()
 
-        result = c.fetchone()
+            if result is None:
+                return None
 
-        if result is None:
-            return None
+            uid, = result
 
-        uid, = result
         return Passage(uid)
 
 def warmup():
@@ -151,3 +149,5 @@ def warmup():
         if uid >= marker + 100:
             print uid
             marker = uid
+
+    print uid

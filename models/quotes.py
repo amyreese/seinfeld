@@ -1,31 +1,24 @@
 import sqlite3
 
-from core import app
+from core import app, Cacheable
 
 db = sqlite3.connect(app.config['DB_PATH'])
 
 class Episode(object):
-    def __init__(self, eid=None, uid=None):
-        c = db.cursor()
+    __metaclass__ = Cacheable
 
-        if eid is None and uid is not None:
-            c.execute('''SELECT episode_id
-                         FROM utterance
-                         WHERE id = ?
-                         ''', (uid,))
-            eid, = c.fetchone()
-
-        if eid is None:
-            raise ValueError('no eid given or found')
-
+    def __init__(self, eid):
         self.eid = eid
 
+        c = db.cursor()
         c.execute('''SELECT season_number, episode_number, title
                      FROM episode
                      WHERE id = ?
                      ''', (eid,))
         row = c.fetchone()
         self.season, self.number, self.title = row
+
+        self.cache()
 
 
 class Quote(object):
@@ -45,8 +38,7 @@ class Quote(object):
 
         self.text = ' '.join([text for text, in rows])
 
-        eid = None
-        if speaker is None:
+        if speaker is None or episode is None:
             c.execute('''SELECT speaker, episode_id
                          FROM utterance
                          WHERE id = ?
@@ -55,11 +47,13 @@ class Quote(object):
         self.speaker = speaker
 
         if episode is None:
-            episode = Episode(eid, self.uid)
+            episode = Episode(eid)
         self.episode = episode
 
 
 class Passage(object):
+    __metaclass__ = Cacheable
+
     def __init__(self, uid):
         self.uid = uid
 
@@ -92,7 +86,9 @@ class Passage(object):
                      ''', (self.episode_id, utterance_start, utterance_end))
         rows = c.fetchall()
 
-        self.quotes = [Quote(uid, speaker) for uid, speaker in rows]
+        self.quotes = [Quote(uid, speaker, self.episode) for uid, speaker in rows]
+
+        self.cache()
 
     @classmethod
     def random(cls, subject=None, speaker=None):
@@ -137,4 +133,21 @@ class Passage(object):
             return None
 
         uid, = result
-        return Passage(uid=uid)
+        return Passage(uid)
+
+def warmup():
+    c = db.cursor()
+    c.execute('''SELECT id
+                 FROM utterance
+                 ORDER BY id DESC
+                 LIMIT 1
+                 ''')
+    highest_uid, = c.fetchone()
+
+    marker = 0
+    for uid in range(1, highest_uid):
+        Passage(uid)
+
+        if uid >= marker + 100:
+            print uid
+            marker = uid

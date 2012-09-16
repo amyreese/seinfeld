@@ -9,7 +9,7 @@ from models import Quote, Passage
 @template('index.html')
 def index():
     #passage = Passage(uid=37592)
-    passage = Passage(uid=34663)
+    passage = Passage(34663)
     return {
         'passage': passage,
     }

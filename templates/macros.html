@@ -5,10 +5,9 @@
 
 {% macro passage_block(passage) -%}
 <div class="row">
-	<div class="well span8 offset2">
-
+	<div class="well span10 offset1">
 		<div class="row">
-			<div class="span7 offset1">
+			<div class="span9 offset1">
 				<h2>
 					{{ passage.episode.title }}
 					<small>Season {{ passage.episode.season }}, Episode {{ passage.episode.number }}</small>
@@ -16,6 +15,8 @@
 			</div>
 		</div>
 
+		<div class="row">
+			<div class="span8">
 		{% for quote in passage.quotes %}
 		<div class="row">
 			<div class="span1">
@@ -28,10 +29,22 @@
 			</div>
 		</div>
 		{% endfor %}
+			</div>
+			<div class="span2">
+				<p>
+					<a href="{{ passage.episode.amazon_url }}" title="{{ passage.episode.amazon_title }}">
+						<img src="{{ passage.episode.amazon_img }}"/>
+					</a>
+				</p>
+			</div>
+		</div>
 
 		<div class="row">
-			<div class="span7 offset1">
-				<small><a class="" href="/quote/{{ passage.uid }}"><i class="icon-link"></i> Permalink</a></small>
+			<div class="span9 offset1">
+				<small>
+					<a class="meta" href="/quote/{{ passage.uid }}"><i class="icon-link"></i> Permalink</a>
+					<a class="meta" href="{{ passage.episode.amazon_url }}"><i class="icon-shopping-cart"></i> Purchase {{ passage.episode.amazon_title }}</a>
+				</small>
 				<div class="fb-like" data-href="http://seinfeldquote.com/quote/{{ passage.uid }}" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false" data-font="arial"></div>
 			</div>
 		</div>

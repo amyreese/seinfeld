@@ -12,3 +12,11 @@ div.fb-like {
 	position: relative;
 	top: 2px;
 }
+
+a.meta {
+	margin-left: 12px;
+}
+
+a.meta:first-child {
+	margin-left: 0px;
+}

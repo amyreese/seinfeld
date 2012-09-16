@@ -2,6 +2,7 @@ import random
 import sqlite3
 
 from core import app, Cacheable
+from models import amazon_links
 
 db = sqlite3.connect(app.config['DB_PATH'])
 
@@ -18,6 +19,7 @@ class Episode(object):
                      ''', (eid,))
         row = c.fetchone()
         self.season, self.number, self.title = row
+        self.amazon_title, self.amazon_url, self.amazon_img = amazon_links[self.season]
 
         self.cache()
 

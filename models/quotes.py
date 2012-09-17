@@ -91,7 +91,11 @@ class Passage(object):
                      ''', (self.episode_id, utterance_start, utterance_end))
         rows = c.fetchall()
 
-        self.quotes = [Quote(uid, speaker, self.episode) for uid, speaker in rows]
+        self.quotes = []
+        for uid, speaker in rows:
+            if uid == self.uid:
+                self.speaker = speaker
+            self.quotes.append(Quote(uid, speaker, self.episode))
 
         self.cache()
 

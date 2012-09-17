@@ -39,7 +39,7 @@ def quote(uid):
 @get('/random/subject/<subject>', cache=False)
 @get('/random/speaker/<speaker>', cache=False)
 @get('/random/speaker/<speaker>/<subject>', cache=False)
-@template('quote.html')
+@template('random.html')
 def random(subject=None, speaker=None):
     try:
         passage = Passage.random(subject=subject, speaker=speaker)
@@ -49,6 +49,8 @@ def random(subject=None, speaker=None):
         return {
             'title': speaker or subject or 'Random',
             'passage': passage,
+            'speaker': speaker,
+            'subject': subject,
         }
     except (KeyError, ValueError) as e:
         abort(404)

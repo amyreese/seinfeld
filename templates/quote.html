@@ -1,5 +1,17 @@
 {% extends "page.html" %}
 {% from "macros.html" import passage_block %}
 {% block content %}
+<div class="row">
+	<div class="span12">
+		<center>
+			<div class="btn-group">
+				<a class="btn" href="/random/speaker/{{ passage.speaker }}"><i class="icon-user"></i> More {{ passage.speaker | capitalize }}</a>
+				<a class="btn" href="/search"><i class="icon-search"></i> Search</a>
+			</div>
+		</center>
+	</div>
+</div>
+<br/>
+
 {{ passage_block(passage) }}
 {% endblock %}

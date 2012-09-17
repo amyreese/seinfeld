@@ -30,7 +30,7 @@
 		</div>
 		{% endfor %}
 			</div>
-			<div class="span2">
+			<div class="span2 hidden-phone">
 				<p>
 					<a href="{{ passage.episode.amazon_url }}" title="{{ passage.episode.amazon_title }}">
 						<img src="/static/img/season{{ passage.episode.season }}.jpg"/>
@@ -48,6 +48,20 @@
 				<div class="fb-like" data-href="http://seinfeldquote.com/quote/{{ passage.uid }}" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false" data-font="arial"></div>
 			</div>
 		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="span12">
+		<center>
+			<div class="btn-group">
+				{% if passage.uid > 4 %}
+				<a class="btn" href="/quote/{{ passage.uid - 4 }}"><i class="icon-chevron-left"></i></a>
+				{% endif %}
+				{% if passage.uid < passage.highest_uid - 4 %}
+				<a class="btn" href="/quote/{{ passage.uid + 4 }}"><i class="icon-chevron-right"></i></a>
+				{% endif %}
+			</div>
+		</center>
 	</div>
 </div>
 {%- endmacro %}

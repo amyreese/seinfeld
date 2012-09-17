@@ -9,11 +9,11 @@
 				{% if subject and speaker %}
 					<a class="btn" href="/random/speaker/{{ speaker }}/{{ subject }}"><i class="icon-comment"></i> {{ speaker | capitalize }} on {{ subject | capitalize }}</a>
 					<a class="btn" href="/random/speaker/{{ speaker }}"><i class="icon-user"></i> More {{ speaker | capitalize }}</a>
-					<a class="btn" href="/random/{{ subject }}"><i class="icon-tags"></i> More {{ subject | capitalize }}</a>
+					<a class="btn" href="/random/{{ subject }}"><i class="icon-tags"></i> More on {{ subject | capitalize }}</a>
 				{% elif subject %}
 					<a class="btn" href="/random/speaker/{{ passage.speaker }}/{{ subject }}"><i class="icon-comment"></i> {{ passage.speaker | capitalize }} on {{ subject | capitalize }}</a>
 					<a class="btn" href="/random/speaker/{{ passage.speaker }}"><i class="icon-user"></i> More {{ passage.speaker | capitalize }}</a>
-					<a class="btn" href="/random/{{ subject }}"><i class="icon-tags"></i> More {{ subject | capitalize }}</a>
+					<a class="btn" href="/random/{{ subject }}"><i class="icon-tags"></i> More on {{ subject | capitalize }}</a>
 				{% elif speaker %}
 					<a class="btn" href="/random/speaker/{{ speaker }}"><i class="icon-user"></i> More {{ speaker | capitalize }}</a>
 				{% else %}

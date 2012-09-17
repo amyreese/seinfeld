@@ -1,9 +1,11 @@
 import random
+import re
 import sqlite3
 
 from core import app, Cacheable
 from models import amazon_links
 
+wordre = re.compile(r'[\w\']+')
 db = sqlite3.connect(app.config['DB_PATH'])
 
 class Episode(object):
@@ -111,8 +113,10 @@ class Passage(object):
             params = []
 
             if subject:
-                conditions.append('text LIKE ?')
-                params.append('%{}%'.format(subject))
+                words = wordre.findall(subject)
+                for word in words:
+                    conditions.append('text LIKE ?')
+                    params.append('%{}%'.format(word))
 
             if speaker:
                 conditions.append('''utterance_id IN (
@@ -124,6 +128,7 @@ class Passage(object):
 
             where = ' AND '.join(conditions)
 
+            app.logger.debug('search clause: "{}", params: {}'.format(where, params))
             c.execute('''SELECT utterance_id
                          FROM sentence
                          WHERE {}

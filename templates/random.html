@@ -1,6 +1,7 @@
 {% extends "page.html" %}
-{% from "macros.html" import passage_block %}
+{% from "macros.html" import passage_block, search_block with context %}
 {% block content %}
+{% if passage %}
 <div class="row">
 	<div class="span12">
 		<center>
@@ -27,4 +28,7 @@
 <br/>
 
 {{ passage_block(passage) }}
+{% else %}
+{{ search_block(empty=True) }}
+{% endif %}
 {% endblock %}

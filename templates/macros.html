@@ -51,3 +51,36 @@
 	</div>
 </div>
 {%- endmacro %}
+
+{% macro search_block(empty=False) -%}
+<form action="/random" method="get">
+<div class="row">
+	<div class="well span4 offset4">
+		<h2>Search Quotes</h2>
+		{% if empty %}
+		<div class="alert">
+			No quotes found that matched your search.<br/>
+			Try using a simpler subject, a different speaker, or different wording.
+		</div>
+		{% endif %}
+		<label class="muted" for="speaker">Speaker</label>
+		<input class="span4 input" type="text" id="speaker" name="speaker" placeholder="Anyone" data-provide="typeahead"{% if speaker %} value="{{ speaker }}"{% endif %}/>
+		<label class="muted" for="subject">Subject</label>
+		<input class="span4 input" type="text" id="subject" name="subject" placeholder="Anything"{% if subject %} value="{{ subject }}"{% endif %}/>
+		<button class="btn" type="submit">Search</button>
+	</div>
+</div>
+</form>
+<script>
+$(document).ready(function() {
+	$.getJSON('/api/speakers', function(data, status) {
+		$('input#speaker').typeahead({
+			minLength: 0,
+			source: data,
+			items: 6,
+		});
+		$('input#speaker').focus();
+	});
+});
+</script>
+{%- endmacro %}

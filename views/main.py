@@ -21,8 +21,11 @@ def about():
 
 @get('/search', 'Search Quotes')
 @template('search.html')
-def search():
-    return {}
+def search(subject=None, speaker=None):
+    return {
+        'speaker': speaker,
+        'subject': subject,
+    }
 
 @get('/quote/<int:uid>', 'Passage')
 @template('quote.html')
@@ -41,16 +44,11 @@ def quote(uid):
 @get('/random/speaker/<speaker>/<subject>', cache=False)
 @template('random.html')
 def random(subject=None, speaker=None):
-    try:
-        passage = Passage.random(subject=subject, speaker=speaker)
-        if passage is None:
-            abort(404)
+    passage = Passage.random(subject=subject, speaker=speaker)
 
-        return {
-            'title': speaker or subject or 'Random',
-            'passage': passage,
-            'speaker': speaker,
-            'subject': subject,
-        }
-    except (KeyError, ValueError) as e:
-        abort(404)
+    return {
+        'title': speaker or subject or 'Random',
+        'passage': passage,
+        'speaker': speaker,
+        'subject': subject,
+    }

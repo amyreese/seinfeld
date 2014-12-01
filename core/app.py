@@ -1,3 +1,6 @@
+# Copyright 2014 John Reese
+# Licensed under the MIT license
+
 import logging
 from logging import Formatter, FileHandler, StreamHandler
 import os

@@ -1,3 +1,6 @@
+# Copyright 2014 John Reese
+# Licensed under the MIT license
+
 from functools import wraps
 import re
 

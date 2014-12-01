@@ -1,3 +1,6 @@
+# Copyright 2014 John Reese
+# Licensed under the MIT license
+
 from flask import abort
 from jinja2.filters import do_capitalize
 

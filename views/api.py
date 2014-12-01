@@ -1,3 +1,6 @@
+# Copyright 2014 John Reese
+# Licensed under the MIT license
+
 from core import app, api, get, template
 from core.routing import api_help
 from models import db

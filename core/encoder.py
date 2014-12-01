@@ -1,3 +1,6 @@
+# Copyright 2014 John Reese
+# Licensed under the MIT license
+
 import json
 
 class Encoder(json.JSONEncoder):
